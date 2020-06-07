@@ -112,8 +112,14 @@ def main():
         try:
             last_timestamp = tweet_log_item(api, log)
         except tweepy.TweepError as e:
-            print(e)
-            break
+            # Continue on duplicate status error
+            if e.api_code == 187:
+                print("Duplicate status, continuing")
+                last_timestamp = log['timestamp']
+                continue
+            else:
+                print(e)
+                break
 
     if last_timestamp:
         save_last_timestamp(last_timestamp)
