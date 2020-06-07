@@ -1,3 +1,5 @@
 last_tweet
-.git
 config.py
+
+.git
+__pycache__/
