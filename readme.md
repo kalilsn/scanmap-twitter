@@ -1,6 +1,6 @@
 # [@scanmapchi](https://twitter.com/scanmapchi)
 
-Twitter bot for https://scanmap.live/chi.
+Twitter bot for https://scanmap.live/chi. Modified from https://twitter.com/scanmapny bot made by https://github.com/jdiedrick.
 
 ## Configuration
 
