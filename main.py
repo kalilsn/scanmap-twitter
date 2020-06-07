@@ -70,15 +70,20 @@ def tweet_log_item(api, log):
     tweet = format_tweet(log['data'])
 
     if len(tweet) < MAX_TWEET_LENGTH:
+        print(tweet)
         api.update_status(tweet)
     else:
         # Chunk string into tweets
         tweets = re.findall(f".{{1,{MAX_TWEET_LENGTH}}}", tweet, flags=re.S)
-
+        print("Splitting tweet...")
         # Tweet message as a thread
         id = None
         for tweet in tweets:
+            print(tweet)
+            print('')
             id = api.update_status(tweet, in_reply_to_status_id=id).id
+
+    print('-----------------------')
 
     return log['timestamp']
 
@@ -89,7 +94,6 @@ def main():
 
     response = requests.get(config.LOG_URL)
     parsed_response = response.json()
-
     logs = parsed_response['logs']
 
     last_log_tweeted = get_last_timestamp()
