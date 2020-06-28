@@ -16,7 +16,11 @@ LABELS = {
   'injury': '🩹',
   'barricade': '🚧',
   'aviation': '🚁',
-  'other': '🔹'
+  'other': '🔹',
+  'aid': '⛑',
+  'military': '💂',
+  'protestor_barricade': '🛡',
+  'arrests': '🚨 ',
 }
 
 # Tweet can be 280 characters, but this leaves some extra room for emoji,
