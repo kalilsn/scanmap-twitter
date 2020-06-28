@@ -23,6 +23,8 @@ LABELS = {
   'arrests': '🚨 ',
 }
 
+HASHTAGS = f'\n{config.HASHTAGS}' if hasattr(config, 'HASHTAGS') else ''
+
 # Tweet can be 280 characters, but this leaves some extra room for emoji,
 # which count as two characters
 MAX_TWEET_LENGTH = 270
@@ -72,20 +74,21 @@ def format_tweet(data):
 # a thread.
 def tweet_log_item(api, log):
     tweet = format_tweet(log['data'])
+    length = MAX_TWEET_LENGTH - len(HASHTAGS)
 
-    if len(tweet) < MAX_TWEET_LENGTH:
+    if len(tweet) < length :
         print(tweet)
-        api.update_status(tweet)
+        api.update_status(tweet + HASHTAGS)
     else:
         # Chunk string into tweets
-        tweets = re.findall(f".{{1,{MAX_TWEET_LENGTH}}}", tweet, flags=re.S)
+        tweets = re.findall(f".{{1,{length}}}", tweet, flags=re.S)
         print("Splitting tweet...")
         # Tweet message as a thread
         id = None
         for tweet in tweets:
             print(tweet)
             print('')
-            id = api.update_status(tweet, in_reply_to_status_id=id).id
+            id = api.update_status(tweet + HASHTAGS, in_reply_to_status_id=id).id
 
     print('-----------------------')
 
